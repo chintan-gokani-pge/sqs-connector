@@ -6,6 +6,7 @@ from util.SQSUtil import SQSUtil
 from ast import literal_eval
 
 
+# Sample function to sqs Producer
 def send_message():
     sample_messages = [
         {
@@ -26,8 +27,9 @@ def send_message():
         str_message = str(message)
         sqs_client = SQSUtil(SQS_URL, aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
         sqs_client.send_message(str_message)
+        
 
-
+# Sample Lambda sqs consumer
 def sqs_consumer(event, context):
     logger.info('sqs_consumer')
     records = event.get('Records')
@@ -35,10 +37,7 @@ def sqs_consumer(event, context):
         msg_body = literal_eval(record.get('body'))
         logger.info('msg_body = {}'.format(msg_body))
 
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
-    }
+    logger.info('sqs_consumer records processed successfully !')
 
 
 if __name__ == '__main__':
