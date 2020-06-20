@@ -32,8 +32,8 @@ class SQSUtil:
             QueueUrl=self._queue_url,
             Entries=msg_entries.get_message_entries()
         )
+        print(response)
         logger.info(response)
-        # logger.info(response['MessageId'])
         return response
 
     def receive_message(self, msg_attribute_name='All'):
